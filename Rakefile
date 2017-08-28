@@ -55,6 +55,12 @@ end
 
 namespace :test do
   RuboCop::RakeTask.new
+
+  begin
+    require 'rspec/core/rake_task'
+    RSpec::Core::RakeTask.new(:spec)
+  rescue LoadError
+  end
 end
 
 # Cross-platform exe_exists?
