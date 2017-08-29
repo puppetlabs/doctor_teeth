@@ -34,3 +34,5 @@ eval_gemfile(local_gemfile) if File.exist? local_gemfile
 
 user_gemfile = File.join(Dir.home, '.Gemfile')
 eval_gemfile(user_gemfile) if File.exist? user_gemfile
+
+gemspec
