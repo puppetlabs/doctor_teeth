@@ -25,6 +25,8 @@ module DoctorTeeth
       file_count = json_files.length
       puts "Attempting to process #{file_count} json files"
       json_files.each do |json|
+        # totally unclear what this is doing
+        #   counting chars?  allocating buffer?
         output_char = file_count % 50.zero? ? ".\n" : '.'
 
         File.open(json).each do |line|
@@ -32,6 +34,8 @@ module DoctorTeeth
           json_object = JSON.parse(line)
           # translate elasticsearch record to QALEK2 schema
 
+          # TODO: validate all these fields before access with a method with error handling
+          # TODO: data model to apply to any given input source so it'll fit in with our output source (big query or other)
           execution_id = json_object['_source']['jenkins_build_url']
           project = json_object['_source']['job_name']
           configuration = []
@@ -76,6 +80,7 @@ module DoctorTeeth
 
     # inserts a record into something or other. big query?
     # @since v0.0.1
+    # private
     def insert_record(test_record = {})
       id            = test_record['execution_id']
       project       = test_record['project']
@@ -125,6 +130,7 @@ module DoctorTeeth
         @test_runs[id]['test_suites'].push(test_suite)
       end
     end
+    private :insert_record
 
     # make a mondo file
     def generate_new_line_delimited_json_file(file)
