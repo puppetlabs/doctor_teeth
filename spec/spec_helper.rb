@@ -1,6 +1,20 @@
 # frozen_string_literal: true
 
-if ENV['COVERAGE']
+def is_ci?
+  ENV['CI'] || ENV['JENKINS_URL'] || ENV['TRAVIS'] || ENV['APPVEYOR']
+end
+
+unless ENV['COVERAGE'] && ENV['COVERAGE'].to_s.downcase != 'true' &&
+    ENV['COVERAGE'].to_s.downcase != 'yes' &&
+    ENV['COVERAGE'].to_s.downcase != 'on'
+
+  # coveralls prevents local simplecov from running (facepalm)
+  if is_ci?
+    # https://coveralls.io/github/puppetlabs/doctor_teeth
+    require 'coveralls'
+    Coveralls.wear!
+  end
+
   require 'simplecov'
   SimpleCov.start do
     add_filter '/spec/'
