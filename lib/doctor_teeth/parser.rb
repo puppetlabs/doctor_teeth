@@ -6,13 +6,18 @@ module DoctorTeeth
   # @todo: uncouple loading from parsing
   # @todo: uncouple parsing from storing suites/cases?
   # @since v0.0.1
-  # @attr [String] test_run don't write this. Holds test_run info from the xml
+  # @attr [String] test_run Holds test_run info from the xml, don't write this.
   class Parser
     attr_accessor :test_run
 
     def initialize(xml, opts = {})
-      xml = File.read(xml) if File.exist?(xml)
-      @xml = Nokogiri::XML(xml)
+      begin
+        xml_read = File.read(xml)
+      rescue Errno::ENOENT => e
+        $stderr.puts "ERROR: #{e}"
+        exit 1
+      end
+      @xml = Nokogiri::XML(xml_read)
       # TODO: validate initial opts
       @test_run = extract_test_run(opts[:project],
                                    opts[:configuration], opts[:execution_id])
@@ -20,6 +25,7 @@ module DoctorTeeth
 
     private
 
+    # TODO: we probably need a class for run, suite, case, etc
     def extract_test_run(project, configuration, execution_id)
       start_time = nil
       @xml.xpath('//testsuites//properties//property').each do |property|
@@ -32,9 +38,12 @@ module DoctorTeeth
         break
       end
 
+      # TODO
       # update the way that we deal with configuration to match what is done
       # when we convert elasticsearch data to the BigQuery schema
       # we are assuming that the configuration is provided in the format of a hash
+
+      # TODO allow extra stuff in xml like beaker?
 
       conf = []
       configuration.each { |k, v| conf.push("#{k}=#{v}") }
@@ -85,17 +94,20 @@ module DoctorTeeth
         test_case['status'] = 'pass'
 
         # set status
+        # TODO: ensure these status strings match current qaelk
+        #   especially fail/skip
         tc.children.each do |child|
           n = child.name
           if n == 'failure'
             # this will set status to failure or error
             test_case['status'] = child.attributes['type'].value
-          elsif %w[skipped pending].any? { |state| state == n }
-            test_case['status'] = n
+          elsif n == 'skip'
+            # this will set status to skipped or pending
+            test_case['status'] = child.attributes['type'].value
           end
         end
 
-        if %w[failure error].any? { |state| state == test_case['status'] }
+        if %w[fail error].any? { |state| state == test_case['status'] }
           tc.children.each do |child|
             n = child.name
             # only capture system out if status of failure or error
