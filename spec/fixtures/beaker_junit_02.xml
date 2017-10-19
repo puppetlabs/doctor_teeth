@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="junit.xsl"?>
+<testsuites>
+  <meta_test_info page_active="no-links" link_url=""/>
+  <testsuite name="pre_suite" tests="1" errors="1" failures="0" skipped="0" pending="0" total="2" time="0.010325">
+    <properties>
+      <property name="project" value="qe_rototiller_integration-system_master/LAYOUT=default,LDAP_TYPE=default,PLATFORM=default,SAUCE=default,label=beaker"/>
+      <property name="department" value="unknown"/>
+      <property name="created_by" value="Jenkins_coordinator_machine_account"/>
+      <property name="host_tags" value="{}"/>
+      <property name="openstack_api_key" value=""/>
+      <property name="openstack_username" value=""/>
+      <property name="openstack_auth_url" value="/tokens"/>
+      <property name="openstack_tenant" value=""/>
+      <property name="openstack_keyname" value=""/>
+      <property name="openstack_network" value=""/>
+      <property name="openstack_region" value=""/>
+      <property name="jenkins_build_url" value="https://jenkins-qe.delivery.puppetlabs.net/job/qe_rototiller_integration-system_master/LAYOUT=default,LDAP_TYPE=default,PLATFORM=default,SAUCE=default,label=beaker/12/"/>
+      <property name="validate" value="true"/>
+      <property name="configure" value="true"/>
+      <property name="log_level" value="verbose"/>
+      <property name="trace_limit" value="10"/>
+      <property name="master-start-curl-retries" value="120"/>
+      <property name="masterless" value="false"/>
+      <property name="options_file" value=""/>
+      <property name="type" value="pe"/>
+      <property name="provision" value="true"/>
+      <property name="preserve_hosts" value="onfail"/>
+      <property name="root_keys" value="false"/>
+      <property name="quiet" value="false"/>
+      <property name="project_root" value="/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker"/>
+      <property name="xml_dir" value="junit"/>
+      <property name="xml_file" value="beaker_junit.xml"/>
+      <property name="xml_time" value="beaker_times.xml"/>
+      <property name="xml_time_enabled" value="false"/>
+      <property name="xml_stylesheet" value="junit.xsl"/>
+      <property name="default_log_prefix" value="beaker_logs"/>
+      <property name="log_dir" value="log"/>
+      <property name="log_sut_event" value="sut.log"/>
+      <property name="color" value="true"/>
+      <property name="dry_run" value="false"/>
+      <property name="tag_includes" value="[]"/>
+      <property name="tag_excludes" value="[]"/>
+      <property name="timeout" value="900"/>
+      <property name="fail_mode" value="slow"/>
+      <property name="accept_all_exit_codes" value="false"/>
+      <property name="timesync" value="false"/>
+      <property name="disable_iptables" value="false"/>
+      <property name="set_env" value="true"/>
+      <property name="disable_updates" value="true"/>
+      <property name="repo_proxy" value="false"/>
+      <property name="package_proxy" value="false"/>
+      <property name="add_el_extras" value="false"/>
+      <property name="epel_url" value="http://dl.fedoraproject.org/pub/epel"/>
+      <property name="epel_arch" value="i386"/>
+      <property name="epel_7_pkg" value="epel-release-7-7.noarch.rpm"/>
+      <property name="epel_6_pkg" value="epel-release-6-8.noarch.rpm"/>
+      <property name="epel_5_pkg" value="epel-release-5-4.noarch.rpm"/>
+      <property name="consoleport" value="443"/>
+      <property name="pe_dir" value="/opt/enterprise/dists"/>
+      <property name="pe_version_file" value="LATEST"/>
+      <property name="pe_version_file_win" value="LATEST-win"/>
+      <property name="host_env" value="{}"/>
+      <property name="host_name_prefix" value=""/>
+      <property name="ssh_env_file" value="~/.ssh/environment"/>
+      <property name="profile_d_env_file" value="/etc/profile.d/beaker_env.sh"/>
+      <property name="dot_fog" value="/var/lib/jenkins/.fog"/>
+      <property name="ec2_yaml" value="config/image_templates/ec2.yaml"/>
+      <property name="help" value="false"/>
+      <property name="collect_perf_data" value="none"/>
+      <property name="puppetdb_port_ssl" value="8081"/>
+      <property name="puppetdb_port_nonssl" value="8080"/>
+      <property name="puppetserver_port" value="8140"/>
+      <property name="nodeclassifier_port" value="4433"/>
+      <property name="cache_files_locally" value="true"/>
+      <property name="aws_keyname_modifier" value="7170869447"/>
+      <property name="run_in_parallel" value="[]"/>
+      <property name="ssh" value="{:config=&gt;false, :paranoid=&gt;false, :auth_methods=&gt;[&quot;publickey&quot;], :port=&gt;22, :forward_agent=&gt;true, :keys=&gt;[&quot;/var/lib/jenkins/.ssh/id_rsa-acceptance&quot;], :user_known_hosts_file=&gt;&quot;/var/lib/jenkins/.ssh/known_hosts&quot;, :keepalive=&gt;true}"/>
+      <property name="hosts_file" value="/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/acceptance/hosts.cfg"/>
+      <property name="keyfile" value="/var/lib/jenkins/.ssh/id_rsa-acceptance"/>
+      <property name="load_path" value="[&quot;acceptance/lib&quot;]"/>
+      <property name="pre_suite" value="[&quot;acceptance/pre-suite/01_install_rototiller.rb&quot;, &quot;acceptance/pre-suite/02_install_rake.rb&quot;]"/>
+      <property name="tests" value="[&quot;acceptance/tests/rototillerTask/command_arguments_with_override.rb&quot;, &quot;acceptance/tests/rototillerTask/command_options.rb&quot;, &quot;acceptance/tests/rototillerTask/command_switches.rb&quot;, &quot;acceptance/tests/rototillerTask/define_and_list_RototillerTasks.rb&quot;, &quot;acceptance/tests/rototillerTask/dependent_tasks.rb&quot;, &quot;acceptance/tests/rototillerTask/environment_variables.rb&quot;, &quot;acceptance/tests/rototillerTask/override_command_option_with_env_var.rb&quot;, &quot;acceptance/tests/rototillerTask/override_command_with_env.rb&quot;, &quot;acceptance/tests/rototillerTask/task_with_args.rb&quot;]"/>
+      <property name="command_line" value="/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/bin/beaker --debug --log-level verbose --hosts acceptance/hosts.cfg --preserve-hosts onfail --keyfile /var/lib/jenkins/.ssh/id_rsa-acceptance --load-path acceptance/lib --pre-suite acceptance/pre-suite --tests acceptance/tests"/>
+      <property name="HOSTS" value="{:&quot;centos7-64-1&quot;=&gt;{:pe_dir=&gt;nil, :pe_ver=&gt;nil, :pe_upgrade_dir=&gt;nil, :pe_upgrade_ver=&gt;nil, :hypervisor=&gt;&quot;vmpooler&quot;, :platform=&gt;&quot;el-7-x86_64&quot;, :template=&gt;&quot;centos-7-x86_64&quot;, :roles=&gt;[&quot;agent&quot;, &quot;default&quot;], :host_tags=&gt;{}}}"/>
+      <property name="nfs_server" value="none"/>
+      <property name="pooling_api" value="http://vmpooler.delivery.puppetlabs.net/"/>
+      <property name="home" value="/var/lib/jenkins"/>
+      <property name="helper" value="[]"/>
+      <property name="post_suite" value="[]"/>
+      <property name="install" value="[]"/>
+      <property name="pre_cleanup" value="[]"/>
+      <property name="modules" value="[]"/>
+      <property name="logger" value="#&lt;Beaker::Logger:0x00000001f16c00&gt;"/>
+      <property name="timestamp" value="2016-08-01 16:09:46 -0700"/>
+      <property name="beaker_version" value="2.48.1"/>
+      <property name="log_prefix" value="hosts.cfg"/>
+      <property name="xml_dated_dir" value="junit/hosts.cfg/2016-08-01_16_09_46"/>
+      <property name="log_dated_dir" value="log/hosts.cfg/2016-08-01_16_09_46"/>
+      <property name="logger_sut" value="#&lt;Beaker::Logger:0x0000000209df60&gt;"/>
+    </properties>
+    <testcase classname="acceptance/pre-suite" name="01_install_rototiller.rb" time="0.009558">
+      <failure type="error" message="cannot infer basepath"><![CDATA[acceptance/pre-suite/01_install_rototiller.rb:1:in `require_relative'\nacceptance/pre-suite/01_install_rototiller.rb:1:in `block in run_test'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_case.rb:133:in `eval'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_case.rb:133:in `block in run_test'\n/usr/local/rvm/rubies/ruby-1.9.3-p484/lib/ruby/1.9.1/benchmark.rb:295:in `realtime'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_case.rb:130:in `run_test'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_suite.rb:325:in `block in run'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_suite.rb:322:in `each'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_suite.rb:322:in `run'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/test_suite.rb:371:in `run_and_raise_on_failure'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/cli.rb:172:in `run_suite'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/lib/beaker/cli.rb:96:in `execute!'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/bin/beaker:6:in `<top (required)>'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/bin/beaker:23:in `load'\n/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/bin/beaker:23:in `<main>']]></failure>
+      <system-out><![CDATA[LoadError: cannot infer basepath
+/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/acceptance/pre-suite/01_install_rototiller.rb:1
+/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/acceptance/pre-suite/01_install_rototiller.rb:1
+/var/lib/jenkins/workspace/qe_rototiller_integration-system_master/LAYOUT/default/LDAP_TYPE/default/PLATFORM/default/SAUCE/default/label/beaker/vendor/bundler/ruby/1.9.1/gems/beaker-2.48.1/bin/beaker:6
+Begin teardown
+End teardown
+]]></system-out>
+    </testcase>
+  </testsuite>
+</testsuites>
