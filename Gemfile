@@ -15,10 +15,14 @@ def location_for(place, fake_version = nil)
   end
 end
 
-# lint/unit tests: --without system_tests development
+# lint/unit tests, runs in travis with: bundle install --without system_tests development
 gem 'rake'
 gem 'rspec'
 gem 'rubocop', '~> 0.49.1', require: false # used in tests. pinned
+gem 'simplecov' # used in tests
+# https://coveralls.io/github/puppetlabs/doctor_teeth
+gem 'coveralls', require: false # used in tests
+
 # Documentation dependencies
 gem 'yard', '~> 0'
 
@@ -34,3 +38,5 @@ eval_gemfile(local_gemfile) if File.exist? local_gemfile
 
 user_gemfile = File.join(Dir.home, '.Gemfile')
 eval_gemfile(user_gemfile) if File.exist? user_gemfile
+
+gemspec

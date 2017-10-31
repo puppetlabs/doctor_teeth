@@ -13,3 +13,4 @@ env:
     - "CHECK=docs:yard"
     # FIXME: turn this back on after more testing and refactor away cop issues
     #- "CHECK=test:rubocop"
+    - "CHECK=test:spec"

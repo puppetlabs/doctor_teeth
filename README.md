@@ -6,6 +6,9 @@ doctor_teeth
 
 A Ruby Gem to contain the logic that parses the junit_xml produced by beaker and other tools into QAELK2s DB.
 
+[![Build Status](https://travis-ci.org/puppetlabs/doctor_teeth.svg?branch=master)](https://travis-ci.org/puppetlabs/doctor_teeth)
+[![Coverage Status](https://coveralls.io/repos/github/puppetlabs/doctor_teeth/badge.svg?branch=master)](https://coveralls.io/github/puppetlabs/doctor_teeth?branch=master)
+
 # Example
 ```ruby
 

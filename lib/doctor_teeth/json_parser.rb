@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
+require 'json'
+require 'time'
 module DoctorTeeth
   # A json file parser that takes extra metadata from a test_suite/case
   #   metadata that is not always in junit.xml
@@ -25,13 +27,37 @@ module DoctorTeeth
       file_count = json_files.length
       puts "Attempting to process #{file_count} json files"
       json_files.each do |json|
-        output_char = file_count % 50.zero? ? ".\n" : '.'
+        # totally unclear what this is doing
+        #   counting chars?  allocating buffer?
+        output_char = file_count % 50 == 0 ? ".\n" : '.'
 
         File.open(json).each do |line|
           # TODO: fix dirty data
-          json_object = JSON.parse(line)
+          begin
+            json_object = JSON.parse(line)
+          rescue JSON::ParserError => e
+            raise ("invalid JSON in file '#{json}': #{e}")
+          end
           # translate elasticsearch record to QALEK2 schema
 
+          # TODO: use single instance var, don't pass to other method
+          if !json_object['_source']
+            raise ("missing '_source' key in file '#{json}'")
+          end
+          ['jenkins_build_url',
+           'job_name',
+           'start_time',
+           'test_case_suite',
+           'test_case_name',
+           'test_case_status',
+           'test_case_time',
+           'pre_suite_time',
+           'tests_time',
+           'configs'].each do |field|
+             if !json_object['_source'][field]
+               raise ("missing #{field} key in '_source' field in file '#{json}'")
+             end
+           end
           execution_id = json_object['_source']['jenkins_build_url']
           project = json_object['_source']['job_name']
           configuration = []
@@ -46,7 +72,7 @@ module DoctorTeeth
           conf = json_object['_source']['configs']
           conf.each { |k, v| configuration.push("#{k}=#{v}") } if conf
 
-          test_record = {
+          @test_record = {
             'execution_id' => execution_id,
             # TODO: need to find a better way to translate project name
             'project'         => project,
@@ -65,8 +91,10 @@ module DoctorTeeth
           # add up test_run duration, values could be nil
           suite_durations = [json_object['_source']['pre_suite_time'],
                              json_object['_source']['tests_time']].compact
-          test_record['duration'] = suite_durations.inject(:+)
-          insert_record(test_record)
+          @test_record['duration'] = suite_durations.inject(:+)
+
+          # do the thing
+          insert_record(@test_record)
         end
 
         print output_char
@@ -76,6 +104,7 @@ module DoctorTeeth
 
     # inserts a record into something or other. big query?
     # @since v0.0.1
+    # private
     def insert_record(test_record = {})
       id            = test_record['execution_id']
       project       = test_record['project']
@@ -125,14 +154,15 @@ module DoctorTeeth
         @test_runs[id]['test_suites'].push(test_suite)
       end
     end
+    private :insert_record
 
-    # make a mondo file
+    # make a single file
     def generate_new_line_delimited_json_file(file)
       line_count = @test_runs.length
       puts "\nAttempting to write #{line_count} json objects to #{file}"
       File.open(file, 'w') do |f|
         @test_runs.each do |_k, v|
-          output_char = line_count % 50.zero? ? ".\n" : '.'
+          output_char = line_count % 50 == 0 ? ".\n" : '.'
           print output_char
 
           f.write(JSON.generate('test_run' => v))
@@ -150,12 +180,13 @@ module DoctorTeeth
         "to files in the directory #{dir}"
 
       slice_count = 0
+      raise "too few test runs to split to #{number_of_desired_files} files" unless @test_runs.length >= number_of_desired_files
       @test_runs.each_slice(@test_runs.length / number_of_desired_files) do |slice|
         slice_count += 1
 
         File.open("#{dir}/file#{slice_count}", 'w') do |f|
           slice.each do |_k, v|
-            output_char = line_count % 50.zero? ? ".\n" : '.'
+            output_char = line_count % 50 == 0 ? ".\n" : '.'
             print output_char
 
             f.write(JSON.generate('test_run' => v))
