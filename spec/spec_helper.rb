@@ -22,8 +22,19 @@ unless ENV['COVERAGE'] && ENV['COVERAGE'].to_s.downcase != 'true' &&
   end
 end
 
+require 'rack/test'
 require 'rspec'
 require 'doctor_teeth'
+
+ENV['RACK_ENV'] = 'test'
+
+module RSpecMixin
+  include Rack::Test::Methods
+  def app() Sinatra::Application end
+end
+
+# For RSpec 2.x and 3.x
+RSpec.configure { |c| c.include RSpecMixin }
 
 def random_string
   (0...10).map { ('a'..'z').to_a[rand(26)] }.join
