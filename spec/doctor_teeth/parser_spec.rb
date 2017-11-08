@@ -6,23 +6,9 @@ module DoctorTeeth
   describe Parser do
 
     shared_examples 'minimal file' do
-      it 'should not raise error when file found and empty configuration sent' do
-        # stub File.open
-        allow(File).to receive(:read).and_call_original
-        allow(File).to receive(:read).with(/some_file.xml/).
-          and_return(files_like_object)
-        expect{ described_class.new('some_file.xml',
-                                    { :configuration => {} }) }.
-        to_not raise_error
-      end
-
       it 'should find test_run fields with no option parameters sent' do
-        # stub File.open
-        allow(File).to receive(:read).and_call_original
-        allow(File).to receive(:read).with(/some_file.xml/).
-          and_return(files_like_object)
         test_run = described_class.
-          new('some_file.xml',{:configuration => {}}).
+          new(xml_string,{:configuration => {}}).
           instance_variable_get(:@test_run)['test_run']
         expect( test_run['project'] ).to be_nil
         expect( test_run['duration'] ).to eq(0.010325)
@@ -42,17 +28,13 @@ module DoctorTeeth
       end
 
       it 'should find test_run fields with option parameters sent' do
-        # stub File.open
-        allow(File).to receive(:read).and_call_original
-        allow(File).to receive(:read).with(/some_file.xml/).
-          and_return(files_like_object)
         config = {'LAYOUT'=>'default',
                   'LDAP_TYPE'=>'default',
                   'PLATFORM'=>'default',
                   'SAUCE'=>'default',
                   'label'=>'beaker'}
         test_run = described_class.
-          new('some_file.xml',{:configuration => config, :project => 'myproj', :execution_id => 42424242}).
+          new(xml_string,{:configuration => config, :project => 'myproj', :execution_id => 42424242}).
           instance_variable_get(:@test_run)['test_run']
 
         expect( test_run['project'] ).to eq('myproj')
@@ -79,22 +61,14 @@ module DoctorTeeth
 
     shared_examples 'complete file' do
       it 'should not raise error when file found and empty configuration sent' do
-        # stub File.open
-        allow(File).to receive(:read).and_call_original
-        allow(File).to receive(:read).with(/some_file.xml/).
-          and_return(files_like_object)
-        expect{ described_class.new('some_file.xml',
+        expect{ described_class.new(xml_string,
                                     { :configuration => {} }) }.
         to_not raise_error
       end
 
       it 'should find test_run fields with no option parameters sent' do
-        # stub File.open
-        allow(File).to receive(:read).and_call_original
-        allow(File).to receive(:read).with(/some_file.xml/).
-          and_return(files_like_object)
         test_run = described_class.
-          new('some_file.xml',{:configuration => {}}).
+          new(xml_string,{:configuration => {}}).
           instance_variable_get(:@test_run)['test_run']
 
         tests = test_run['test_suites'][1]
@@ -120,20 +94,11 @@ module DoctorTeeth
     end
 
     it_behaves_like 'minimal file' do
-      let(:files_like_object) { File.read('spec/fixtures/beaker_junit_02.xml') }
+      let(:xml_string) { File.read('spec/fixtures/beaker_junit_02.xml') }
     end
 
     it_behaves_like 'complete file' do
-      let(:files_like_object) { File.read('spec/fixtures/beaker_junit_03.xml') }
-    end
-
-    context 'missing file' do
-      it 'should error when file not found' do
-        expect do
-          expect{ described_class.new('some_file_missing.xml') }.
-            to output('No such file or directory').to_stderr
-        end.to raise_error(SystemExit)
-      end
+      let(:xml_string) { File.read('spec/fixtures/beaker_junit_03.xml') }
     end
 
   end # describe Parser
