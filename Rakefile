@@ -32,6 +32,18 @@ namespace :docs do
     t.stats_options = ['--list-undoc']
   end
 
+  desc 'Measure YARD coverage'
+  require 'yardstick/rake/measurement'
+  Yardstick::Rake::Measurement.new(:measure) do |measurement|
+      measurement.output = 'yardstick/report.txt'
+  end
+
+  desc 'Verify YARD coverage'
+  require 'yardstick/rake/verify'
+  Yardstick::Rake::Verify.new(:verify) do |verify|
+    verify.threshold = 100
+  end
+
   desc 'Generate static project architecture graph. (Calls docs:yard)'
   # this calls `yard graph` so we can't use the yardoc tasks like above
   #   We could create a YARD:CLI:Graph object.
@@ -59,6 +71,7 @@ namespace :test do
   begin
     require 'rspec/core/rake_task'
     RSpec::Core::RakeTask.new(:spec)
+  # if rspec isn't available, we can still use this Rakefile
   rescue LoadError
   end
 end
