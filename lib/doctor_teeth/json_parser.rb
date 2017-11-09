@@ -16,7 +16,7 @@ module DoctorTeeth
     #
     # @api public
     # @example
-    #   DoctorTeeth::NewLineJsonFileParser.new('some_file.json')
+    #   @test_runs[job_url] = {"execution_id"=>"https://jenkins-master-prod-1.delivery.puppetlabs.net/job/blah",
     # @return a test_runs hash
     attr_reader :test_runs
 
@@ -24,7 +24,7 @@ module DoctorTeeth
     #
     # @api public
     # @example
-    #   @test_runs[job_url] = {"execution_id"=>"https://jenkins-master-prod-1.delivery.puppetlabs.net/job/blah",
+    #   DoctorTeeth::NewLineJsonFileParser.new('some_file.json')
     def initialize(file)
       json_files = []
       @test_runs = {}
@@ -117,6 +117,7 @@ module DoctorTeeth
     end
 
     # inserts a record into something or other. big query?
+    #
     # @since v0.0.1
     # @api private
     # @return who cares, its private
