@@ -22,6 +22,8 @@ gem 'rubocop', '~> 0.49.1', require: false # used in tests. pinned
 gem 'simplecov' # used in tests
 # https://coveralls.io/github/puppetlabs/doctor_teeth
 gem 'coveralls', require: false # used in tests
+# for testing sinatra routes, etc
+gem 'rack-test', '~> 0.7.0'
 
 # Documentation dependencies
 gem 'yard', '~> 0'

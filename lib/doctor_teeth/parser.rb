@@ -10,14 +10,8 @@ module DoctorTeeth
   class Parser
     attr_accessor :test_run
 
-    def initialize(xml, opts = {})
-      begin
-        xml_read = File.read(xml)
-      rescue Errno::ENOENT => e
-        $stderr.puts "ERROR: #{e}"
-        exit 1
-      end
-      @xml = Nokogiri::XML(xml_read)
+    def initialize(xml_data, opts = {})
+      @xml = Nokogiri::XML(xml_data)
       # TODO: validate initial opts
       @test_run = extract_test_run(opts[:project],
                                    opts[:configuration], opts[:execution_id])
