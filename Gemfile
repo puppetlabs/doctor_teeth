@@ -18,8 +18,9 @@ end
 # lint/unit tests, runs in travis with: bundle install --without system_tests development
 gem 'rake'
 gem 'rspec'
-gem 'rubocop', '~> 0.49.1', require: false # used in tests. pinned
-gem 'simplecov' # used in tests
+gem 'rubocop',   '~> 0.49.1', require: false # used in tests. pinned
+gem 'simplecov', '~> 0.14.0' # used in tests
+gem 'yardstick', '~> 0.9.0' # used in tests
 # https://coveralls.io/github/puppetlabs/doctor_teeth
 gem 'coveralls', require: false # used in tests
 # for testing sinatra routes, etc

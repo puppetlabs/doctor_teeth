@@ -4,13 +4,27 @@ require 'nokogiri'
 require 'json'
 require 'time'
 module DoctorTeeth
+
   # A json file parser that takes extra metadata from a test_suite/case
   #   metadata that is not always in junit.xml
+  #
   # @since v0.0.1
-  # @attr [String] test_runs holds the extra test_run data
+  # @attr_reader test_runs [String] holds the test_run data
   class NewLineJsonFileParser
-    attr_accessor :test_runs
 
+    # Holds the test_run data after parsing the json
+    #
+    # @api public
+    # @example
+    #   @test_runs[job_url] = {"execution_id"=>"https://jenkins-master-prod-1.delivery.puppetlabs.net/job/blah",
+    # @return a test_runs hash
+    attr_reader :test_runs
+
+    # Create a new NewLineJSONFileParser
+    #
+    # @api public
+    # @example
+    #   DoctorTeeth::NewLineJsonFileParser.new('some_file.json')
     def initialize(file)
       json_files = []
       @test_runs = {}
@@ -103,8 +117,10 @@ module DoctorTeeth
     end
 
     # inserts a record into something or other. big query?
+    #
     # @since v0.0.1
-    # private
+    # @api private
+    # @return who cares, its private
     def insert_record(test_record = {})
       id            = test_record['execution_id']
       project       = test_record['project']
@@ -157,6 +173,11 @@ module DoctorTeeth
     private :insert_record
 
     # make a single file
+    #
+    # @api public
+    # @example
+    #   json_file_parser.generate_new_line_delimited_json_file('somedir')
+    # @return line_count?
     def generate_new_line_delimited_json_file(file)
       line_count = @test_runs.length
       puts "\nAttempting to write #{line_count} json objects to #{file}"
@@ -173,7 +194,12 @@ module DoctorTeeth
       end
     end
 
-    # for breaking down into smaller files
+    # make multiple smaller files
+    #
+    # @api public
+    # @example
+    #   json_file_parser.generate_new_line_delimited_json_files('somedir',number_of_files_to_generate)
+    # @return line_count?
     def generate_new_line_delimited_json_files(dir, number_of_desired_files)
       line_count = @test_runs.length
       puts "\nAttempting to write #{line_count} json objects " \

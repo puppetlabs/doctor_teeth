@@ -2,14 +2,27 @@
 
 require 'nokogiri'
 module DoctorTeeth
+
   # a Parser type to load and parse xml into test_suites and cases
+  #
   # @todo: uncouple loading from parsing
   # @todo: uncouple parsing from storing suites/cases?
   # @since v0.0.1
-  # @attr [String] test_run Holds test_run info from the xml, don't write this.
+  # @attr_reader test_run [String] Holds test_run info from the xml, don't write this.
   class Parser
-    attr_accessor :test_run
+    # Holds the test_run data after parsing xml
+    #
+    # @api public
+    # @example
+    #   @test_runs[job_url] = {"execution_id"=>"https://jenkins-master-prod-1.delivery.puppetlabs.net/job/blah",
+    # @return a test_runs hash
+    attr_reader :test_run
 
+    # Create a new Parser
+    #
+    # @api public
+    # @example
+    #   DoctorTeeth::Parser.new(some_data, { :configuration => {} })
     def initialize(xml_data, opts = {})
       @xml = Nokogiri::XML(xml_data)
       # TODO: validate initial opts
@@ -19,6 +32,11 @@ module DoctorTeeth
 
     private
 
+    # extracts test_run stuff from xml
+    #
+    # @since v0.0.1
+    # @api private
+    # @return who cares, its private
     # TODO: we probably need a class for run, suite, case, etc
     def extract_test_run(project, configuration, execution_id)
       start_time = nil
@@ -61,6 +79,11 @@ module DoctorTeeth
       run
     end
 
+    # extracts test_suite stuff from xml
+    #
+    # @since v0.0.1
+    # @api private
+    # @return who cares, its private
     def extract_test_suites
       test_suites = []
 
@@ -77,6 +100,11 @@ module DoctorTeeth
       test_suites
     end
 
+    # extracts test_cases stuff from test_suite
+    #
+    # @since v0.0.1
+    # @api private
+    # @return who cares, its private
     def extract_test_cases(test_suite)
       test_cases = []
 
