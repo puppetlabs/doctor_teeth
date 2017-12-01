@@ -2,24 +2,24 @@
 # frozen_string_literal: true
 
 # place ONLY runtime dependencies in here (in addition to metadata)
-require File.expand_path('../lib/doctor_teeth/version', __FILE__)
+require File.expand_path("../lib/doctor_teeth/version", __FILE__)
 
 Gem::Specification.new do |s|
-  s.name          = 'doctor_teeth'
-  s.authors       = ['Puppet, Inc.', 'Zach Reichert', 'Eric Thompson']
-  s.email         = ['qa@puppet.com']
-  s.summary       = 'Logic to parse junit_xml into a schema we use in BigQuery'
-  s.homepage      = 'https://github.com/puppetlabs/doctor_teeth'
+  s.name          = "doctor_teeth"
+  s.authors       = ["Puppet, Inc.", "Zach Reichert", "Eric Thompson"]
+  s.email         = ["qa@puppet.com"]
+  s.summary       = "Logic to parse junit_xml into a schema we use in BigQuery"
+  s.homepage      = "https://github.com/puppetlabs/doctor_teeth"
   s.version       = DoctorTeeth::Version::STRING
-  s.files         = Dir['CONTRIBUTING.md', 'LICENSE.md', 'MAINTAINERS',
-                        'README.md', 'lib/**/*']
-  s.required_ruby_version = '>= 2.0.0'
+  s.files         = Dir["CONTRIBUTING.md", "LICENSE.md", "MAINTAINERS",
+                        "README.md", "lib/**/*"]
+  s.required_ruby_version = ">= 2.0.0"
 
   # Run time dependencies
   #   pin nokogiri so it can run on centos7 native ruby 2.0.0
-  s.add_runtime_dependency 'nokogiri', '~> 1.6.0'
+  s.add_runtime_dependency "nokogiri", "~> 1.6.0"
   #   pin sinatra so it can run on centos7 native ruby 2.0.0
-  s.add_runtime_dependency 'sinatra',  '~> 1.4.0'
-  s.add_runtime_dependency 'thin',     '~> 1.7.0'
-  s.add_runtime_dependency 'github-markdown'
+  s.add_runtime_dependency "sinatra",  "~> 1.4.0"
+  s.add_runtime_dependency "thin",     "~> 1.7.0"
+  s.add_runtime_dependency "github-markdown"
 end
