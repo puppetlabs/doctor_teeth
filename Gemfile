@@ -28,7 +28,7 @@ gem "coveralls", require: false # used in tests
 gem "rack-test", "~> 0.7.0"
 
 # Documentation dependencies
-gem "yard", "~> 0"
+gem "yard", "~> 0.9.11" # CVE-2017-17042
 
 group :system_tests do
 end
