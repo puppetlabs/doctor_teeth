@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   # Run time dependencies
   #   pin nokogiri so it can run on centos7 native ruby 2.0.0
-  s.add_runtime_dependency "nokogiri", "~> 1.6.0"
+  s.add_runtime_dependency "nokogiri", "~> 1.8.1"
   #   pin sinatra so it can run on centos7 native ruby 2.0.0
   s.add_runtime_dependency "sinatra",  "~> 1.4.0"
   s.add_runtime_dependency "thin",     "~> 1.7.0"
