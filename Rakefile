@@ -2,6 +2,10 @@
 
 require "yard"
 require "rubocop/rake_task"
+require "flog_task"
+require "flay_task"
+require "roodi_task"
+require "rubycritic/rake_task"
 
 YARD_DIR = "doc".freeze
 DOCS_DIR = "docs".freeze
@@ -70,6 +74,16 @@ end
 namespace :test do
   RuboCop::RakeTask.new do |task|
     task.options = ["--debug"]
+  end
+
+  allowed_complexity = 350 # <cough!>
+  FlogTask.new :flog, allowed_complexity, %w[lib]
+  allowed_repitition = 0
+  FlayTask.new :flay, allowed_repitition, %w[lib]
+  RoodiTask.new
+  RubyCritic::RakeTask.new
+  RubyCritic::RakeTask.new do |task|
+    task.paths   = FileList["lib/**/*.rb"]
   end
 
   begin
