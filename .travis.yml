@@ -10,6 +10,7 @@ notifications:
 rvm:
     - 2.4.0
 env:
+    - "CHECK=test:diff_length"
     - "CHECK=docs:verify"
     - "CHECK=test:rubocop"
     - "CHECK=test:spec"

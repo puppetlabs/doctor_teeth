@@ -68,6 +68,16 @@ namespace :docs do
 end
 
 namespace :test do
+  desc "check number of lines of code changed. To protect against long PRs"
+  task "diff_length" do
+    max_length = 100
+    target_branch = ENV["TRAVIS_BRANCH"] || "master"
+    diff_cmd = "git diff --numstat #{target_branch}"
+    sum_cmd  = "awk '{s+=$1} END {print s}'"
+    cmd      = "[ `#{diff_cmd} | #{sum_cmd}` -lt #{max_length} ]"
+    exit system(cmd)
+  end
+
   RuboCop::RakeTask.new do |task|
     task.options = ["--debug"]
   end
