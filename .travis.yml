@@ -13,4 +13,6 @@ env:
     - "CHECK=test:diff_length"
     - "CHECK=docs:verify"
     - "CHECK=test:rubocop"
+    - "CHECK=test:flog"
+    - "CHECK=test:flay"
     - "CHECK=test:spec"
